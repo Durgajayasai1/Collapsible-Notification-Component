@@ -48,19 +48,22 @@ export function CollapsibleNotificationsInteraction() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4 sm:px-6 lg:px-8">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-lg bg-white border-2 border-gray-300 rounded-2xl p-6 overflow-hidden"
+        className="w-full max-w-sm sm:max-w-md md:max-w-lg bg-white border-2 border-gray-300 rounded-2xl p-4 sm:p-6 overflow-hidden"
       >
+        {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Notification
               size={isOpen ? "28" : "40"}
               className="text-gray-400"
             />
-            <h2 className="text-lg text-gray-400">5 New Notifications</h2>
+            <h2 className="text-base sm:text-lg font-semibold text-gray-600">
+              5 New Notifications
+            </h2>
           </div>
           <button
             onClick={() => setIsOpen((prev) => !prev)}
@@ -70,6 +73,7 @@ export function CollapsibleNotificationsInteraction() {
           </button>
         </div>
 
+        {/* Notifications List */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -83,25 +87,28 @@ export function CollapsibleNotificationsInteraction() {
               {notifications.map((notification, index) => (
                 <motion.div
                   key={index}
-                  className="flex items-center p-4 rounded-lg hover:bg-gray-100 transition"
+                  className="flex items-center p-3 sm:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 150, damping: 20 }}
                 >
-                  <div className="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-xl">
+                  {/* Icon with Background */}
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-gray-100 rounded-xl">
                     {notification.icon}
                   </div>
 
-                  <div className="ml-4 flex-1">
-                    <h3 className="text-sm font-semibold text-gray-800">
+                  {/* Text Content */}
+                  <div className="ml-3 sm:ml-4 flex-1">
+                    <h3 className="text-sm sm:text-base font-semibold text-gray-800">
                       {notification.title}
                     </h3>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-xs sm:text-sm text-gray-600">
                       {notification.description}
                     </p>
                   </div>
 
+                  {/* Time */}
                   <div className="text-xs text-gray-500 whitespace-nowrap">
                     {notification.time}
                   </div>
